@@ -1,0 +1,19 @@
+program prjresMaker;
+
+uses
+  Forms,
+  untResMakerPrinc in 'untResMakerPrinc.pas' {frmResmaker},
+  untSobre in 'untSobre.pas' {frmSobre},
+  untParametros in 'untParametros.pas' {Form1};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.Title := 'Mambosoft RES Maker';
+  Application.CreateForm(TfrmResmaker, frmResmaker);
+  Application.CreateForm(TfrmSobre, frmSobre);
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

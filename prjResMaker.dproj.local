@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2016/07/29 10:48:08.233.pas,C:\Users\Seth Sebeck\Documents\RAD Studio\Projects\Unit2.pas=D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\frmResMakerPrinc.pas</Transaction>
+    <Transaction>2016/07/29 10:48:08.233.dfm,C:\Users\Seth Sebeck\Documents\RAD Studio\Projects\Unit2.dfm=D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\frmResMakerPrinc.dfm</Transaction>
+    <Transaction>2016/07/29 10:48:14.329.dproj,C:\Users\Seth Sebeck\Documents\RAD Studio\Projects\Project2.dproj=D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\prjresMaker.dproj</Transaction>
+    <Transaction>2016/08/01 23:15:50.685.pas,D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\Unit1.pas=D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\frmSobre.pas</Transaction>
+    <Transaction>2016/08/01 23:15:50.685.dfm,D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\Unit1.dfm=D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\frmSobre.dfm</Transaction>
+    <Transaction>2016/08/01 23:16:50.106.pas,D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\frmSobre.pas=D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\untSobre.pas</Transaction>
+    <Transaction>2016/08/01 23:16:50.106.dfm,D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\frmSobre.dfm=D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\untSobre.dfm</Transaction>
+    <Transaction>2016/08/01 23:16:58.749.pas,D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\frmResMakerPrinc.pas=D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\untResMakerPrinc.pas</Transaction>
+    <Transaction>2016/08/01 23:16:58.749.dfm,D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\frmResMakerPrinc.dfm=D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\untResMakerPrinc.dfm</Transaction>
+    <Transaction>2016/08/02 13:39:07.309.pas,D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\Unit1.pas=D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\untParametros.pas</Transaction>
+    <Transaction>2016/08/02 13:39:07.309.dfm,D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\Unit1.dfm=D:\AA-Projetos Delphi 2010\AA - THOTHS RESOURCE\untParametros.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

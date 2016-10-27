@@ -1,0 +1,14 @@
+program prjresMaker;
+
+uses
+  Forms,
+  frmResMakerPrinc in 'frmResMakerPrinc.pas' {frmResmaker};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmResmaker, frmResmaker);
+  Application.Run;
+end.

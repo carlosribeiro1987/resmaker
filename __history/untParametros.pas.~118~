@@ -1,0 +1,904 @@
+unit untParametros;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Buttons, FileCtrl, ExtCtrls;
+
+type
+  TfrmParametros = class(TForm)
+    gbxParametros: TGroupBox;
+    edtArquivoComando: TEdit;
+    cbxArquivoComando: TCheckBox;
+    cbxDefinirNomeRes: TCheckBox;
+    cbxAdicionarInclude: TCheckBox;
+    cbxDefine: TCheckBox;
+    cbxApagarInclude: TCheckBox;
+    cbxCodePage: TCheckBox;
+    cbxDBCS: TCheckBox;
+    rbt16Bits: TRadioButton;
+    rbt32Bits: TRadioButton;
+    cbxEspecificarIdioma: TCheckBox;
+    btnArquivoComando: TBitBtn;
+    cmbCodepage: TComboBox;
+    btnAplicarParametros: TBitBtn;
+    btnCancelar: TBitBtn;
+    cmbEspecificarIdioma: TComboBox;
+    btnLimparParametros: TBitBtn;
+    edtDefinirNomeRes: TEdit;
+    edtAdicionarInclude: TEdit;
+    edtNomeDefine: TEdit;
+    edtStringDefine: TEdit;
+    btnAdicionarInclude: TBitBtn;
+    btnDefinirNomeRes: TBitBtn;
+    Label1: TLabel;
+    opnParametros: TOpenDialog;
+    savParametros: TSaveDialog;
+    cbxExibirLog: TCheckBox;
+    cbxApagarRC: TCheckBox;
+    procedure btnAplicarParametrosClick(Sender: TObject);
+    procedure cbxCodePageClick(Sender: TObject);
+    procedure btnAdicionarIncludeClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure edtNomeDefineEnter(Sender: TObject);
+    procedure edtStringDefineEnter(Sender: TObject);
+    procedure edtNomeDefineExit(Sender: TObject);
+    procedure edtStringDefineExit(Sender: TObject);
+    procedure cmbCodepageEnter(Sender: TObject);
+    procedure cmbCodepageExit(Sender: TObject);
+    procedure cmbEspecificarIdiomaEnter(Sender: TObject);
+    procedure cmbEspecificarIdiomaExit(Sender: TObject);
+
+    function CodePage(Indice: Integer): String;
+    function Idioma(Indice: Integer): String;
+    procedure cbxArquivoComandoClick(Sender: TObject);
+    procedure cbxDefinirNomeResClick(Sender: TObject);
+    procedure cbxAdicionarIncludeClick(Sender: TObject);
+    procedure cbxDefineClick(Sender: TObject);
+    procedure cbxEspecificarIdiomaClick(Sender: TObject);
+    procedure btnLimparParametrosClick(Sender: TObject);
+    procedure edtArquivoComandoExit(Sender: TObject);
+    procedure edtDefinirNomeResExit(Sender: TObject);
+    procedure edtAdicionarIncludeExit(Sender: TObject);
+    procedure edtArquivoComandoEnter(Sender: TObject);
+    procedure edtDefinirNomeResEnter(Sender: TObject);
+    procedure edtAdicionarIncludeEnter(Sender: TObject);
+    procedure btnArquivoComandoClick(Sender: TObject);
+    procedure btnDefinirNomeResClick(Sender: TObject);
+    procedure edtArquivoComandoKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edtDefinirNomeResKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edtAdicionarIncludeKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edtNomeDefineKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edtStringDefineKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure FormCreate(Sender: TObject);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    var
+       ParametrosCompilador: String;
+  end;
+
+var
+  frmParametros: TfrmParametros;
+  BufferParametros, StrIdioma, StrCodePage: String;
+
+
+implementation
+
+uses untResMakerPrinc;
+
+{$R *.dfm}
+
+function TfrmParametros.CodePage(Indice: Integer): String;
+var
+   Codigo: Integer;
+begin
+     case Indice of
+          0: Codigo := 037;
+          1: Codigo := 437;
+          2: Codigo := 500;
+          3: Codigo := 708;
+          4: Codigo := 709;
+          5: Codigo := 710;
+          6: Codigo := 720;
+          7: Codigo := 737;
+          8: Codigo := 775;
+          9: Codigo := 850;
+          10: Codigo := 852;
+          11: Codigo := 855;
+          12: Codigo := 857;
+          13: Codigo := 858;
+          14: Codigo := 860;
+          15: Codigo := 861;
+          16: Codigo := 862;
+          17: Codigo := 863;
+          18: Codigo := 864;
+          19: Codigo := 865;
+          20: Codigo := 866;
+          21: Codigo := 869;
+          22: Codigo := 870;
+          23: Codigo := 874;
+          24: Codigo := 875;
+          25: Codigo := 932;
+          26: Codigo := 936;
+          27: Codigo := 949;
+          28: Codigo := 950;
+          29: Codigo := 1026;
+          30: Codigo := 1047;
+          31: Codigo := 1140;
+          32: Codigo := 1141;
+          33: Codigo := 1142;
+          34: Codigo := 1143;
+          35: Codigo := 1144;
+          36: Codigo := 1145;
+          37: Codigo := 1146;
+          38: Codigo := 1147;
+          39: Codigo := 1148;
+          40: Codigo := 1149;
+          41: Codigo := 1200;
+          42: Codigo := 1201;
+          43: Codigo := 1250;
+          44: Codigo := 1251;
+          45: Codigo := 1252;
+          46: Codigo := 1253;
+          47: Codigo := 1254;
+          48: Codigo := 1255;
+          49: Codigo := 1256;
+          50: Codigo := 1257;
+          51: Codigo := 1258;
+          52: Codigo := 1361;
+          53: Codigo := 10000;
+          54: Codigo := 10001;
+          55: Codigo := 10002;
+          56: Codigo := 10003;
+          57: Codigo := 10004;
+          58: Codigo := 10005;
+          59: Codigo := 10006;
+          60: Codigo := 10007;
+          61: Codigo := 10008;
+          62: Codigo := 10010;
+          63: Codigo := 10017;
+          64: Codigo := 10021;
+          65: Codigo := 10029;
+          66: Codigo := 10079;
+          67: Codigo := 10081;
+          68: Codigo := 10082;
+          69: Codigo := 12000;
+          70: Codigo := 12001;
+          71: Codigo := 20000;
+          72: Codigo := 20001;
+          73: Codigo := 20002;
+          74: Codigo := 20003;
+          75: Codigo := 20004;
+          76: Codigo := 20005;
+          77: Codigo := 20105;
+          78: Codigo := 20106;
+          79: Codigo := 20107;
+          80: Codigo := 20108;
+          81: Codigo := 20127;
+          82: Codigo := 20261;
+          83: Codigo := 20269;
+          84: Codigo := 20273;
+          85: Codigo := 20277;
+          86: Codigo := 20278;
+          87: Codigo := 20280;
+          88: Codigo := 20284;
+          89: Codigo := 20285;
+          90: Codigo := 20290;
+          91: Codigo := 20297;
+          92: Codigo := 20420;
+          93: Codigo := 20423;
+          94: Codigo := 20424;
+          95: Codigo := 20833;
+          96: Codigo := 20838;
+          97: Codigo := 20866;
+          98: Codigo := 20871;
+          99: Codigo := 20880;
+          100: Codigo := 20905;
+          101: Codigo := 20924;
+          102: Codigo := 20932;
+          103: Codigo := 20936;
+          104: Codigo := 20949;
+          105: Codigo := 21025;
+          106: Codigo := 21027;
+          107: Codigo := 21866;
+          108: Codigo := 28591;
+          109: Codigo := 28592;
+          110: Codigo := 28593;
+          111: Codigo := 28594;
+          112: Codigo := 28595;
+          113: Codigo := 28596;
+          114: Codigo := 28597;
+          115: Codigo := 28598;
+          116: Codigo := 28599;
+          117: Codigo := 28603;
+          118: Codigo := 28605;
+          119: Codigo := 29001;
+          120: Codigo := 38598;
+          121: Codigo := 50220;
+          122: Codigo := 50221;
+          123: Codigo := 50222;
+          124: Codigo := 50225;
+          125: Codigo := 50227;
+          126: Codigo := 50229;
+          127: Codigo := 50930;
+          128: Codigo := 50931;
+          129: Codigo := 50933;
+          130: Codigo := 50935;
+          131: Codigo := 50936;
+          132: Codigo := 50937;
+          133: Codigo := 50939;
+          134: Codigo := 51932;
+          135: Codigo := 51936;
+          136: Codigo := 51949;
+          137: Codigo := 51950;
+          138: Codigo := 52936;
+          139: Codigo := 54936;
+          140: Codigo := 57002;
+          141: Codigo := 57003;
+          142: Codigo := 57004;
+          143: Codigo := 57005;
+          144: Codigo := 57006;
+          145: Codigo := 57007;
+          146: Codigo := 57008;
+          147: Codigo := 57009;
+          148: Codigo := 57010;
+          149: Codigo := 57011;
+          150: Codigo := 65000;
+          151: Codigo := 65001;
+     end;
+     Result := IntToStr(Codigo);
+end;
+
+function TfrmParametros.Idioma(Indice: Integer): String;
+var
+   Codigo: String;
+begin
+     //
+     case Indice of
+          0: Codigo := '0436';
+          1: Codigo := '041c';
+          2: Codigo := '0484';
+          3: Codigo := '045e';
+          4: Codigo := '1401';
+          5: Codigo := '3c01';
+          6: Codigo := '0c01';
+          7: Codigo := '0801';
+          8: Codigo := '2c01';
+          9: Codigo := '3401';
+          10: Codigo := '3001';
+          11: Codigo := '1001';
+          12: Codigo := '1801';
+          13: Codigo := '2001';
+          14: Codigo := '4001';
+          15: Codigo := '0401';
+          16: Codigo := '2801';
+          17: Codigo := '1c01';
+          18: Codigo := '3801';
+          19: Codigo := '2401';
+          20: Codigo := '042b';
+          21: Codigo := '044d';
+          22: Codigo := '082c';
+          23: Codigo := '042c';
+          24: Codigo := '046d';
+          25: Codigo := '042d';
+          26: Codigo := '0423';
+          27: Codigo := '0445';
+          28: Codigo := '781a';
+          29: Codigo := '201a';
+          30: Codigo := '141a';
+          31: Codigo := '047e';
+          32: Codigo := '0402';
+          33: Codigo := '0403';
+          34: Codigo := '0c04';
+          35: Codigo := '1404';
+          36: Codigo := '1004';
+          37: Codigo := '0804';
+          38: Codigo := '0404';
+          39: Codigo := '0483';
+          40: Codigo := '041a';
+          41: Codigo := '101a';
+          42: Codigo := '041a';
+          43: Codigo := '0405';
+          44: Codigo := '0406';
+          45: Codigo := '048c';
+          46: Codigo := '0465';
+          47: Codigo := '0813';
+          48: Codigo := '0413';
+          49: Codigo := '0c09';
+          50: Codigo := '2809';
+          51: Codigo := '1009';
+          52: Codigo := '2409';
+          53: Codigo := '4009';
+          54: Codigo := '1809';
+          55: Codigo := '1809';
+          56: Codigo := '2009';
+          57: Codigo := '4409';
+          58: Codigo := '1409';
+          59: Codigo := '3409';
+          60: Codigo := '4809';
+          61: Codigo := '1c09';
+          62: Codigo := '2c09';
+          63: Codigo := '0809';
+          64: Codigo := '0409';
+          65: Codigo := '3009';
+          66: Codigo := '0425';
+          67: Codigo := '0438';
+          68: Codigo := '0464';
+          69: Codigo := '040b';
+          70: Codigo := '080c';
+          71: Codigo := '0c0c';
+          72: Codigo := '040c';
+          73: Codigo := '140c';
+          74: Codigo := '180c';
+          75: Codigo := '100c';
+          76: Codigo := '0462';
+          77: Codigo := '0456';
+          78: Codigo := '0437';
+          79: Codigo := '0c07';
+          80: Codigo := '0407';
+          81: Codigo := '1407';
+          82: Codigo := '1007';
+          83: Codigo := '0807';
+          84: Codigo := '0408';
+          85: Codigo := '046f';
+          86: Codigo := '0447';
+          87: Codigo := '0468';
+          88: Codigo := '040d';
+          89: Codigo := '0439';
+          90: Codigo := '040e';
+          91: Codigo := '040f';
+          92: Codigo := '0470';
+          93: Codigo := '0421';
+          94: Codigo := '085d';
+          95: Codigo := '045d';
+          96: Codigo := '083c';
+          97: Codigo := '0410';
+          98: Codigo := '0810';
+          99: Codigo := '0411';
+          100: Codigo := '044b';
+          101: Codigo := '043f';
+          102: Codigo := '0453';
+          103: Codigo := '0486';
+          104: Codigo := '0487';
+          105: Codigo := '0457';
+          106: Codigo := '0412';
+          107: Codigo := '0440';
+          108: Codigo := '0454';
+          109: Codigo := '0426';
+          110: Codigo := '0427';
+          111: Codigo := '082e';
+          112: Codigo := '046e';
+          113: Codigo := '042f';
+          114: Codigo := '083e';
+          115: Codigo := '043e';
+          116: Codigo := '044c';
+          117: Codigo := '043a';
+          118: Codigo := '0481';
+          119: Codigo := '047a';
+          120: Codigo := '044e';
+          121: Codigo := '047c';
+          122: Codigo := '0450';
+          123: Codigo := '0850';
+          124: Codigo := '0461';
+          125: Codigo := '0414';
+          126: Codigo := '0814';
+          127: Codigo := '0482';
+          128: Codigo := '0448';
+          129: Codigo := '0463';
+          130: Codigo := '0429';
+          131: Codigo := '0415';
+          132: Codigo := '0416';
+          133: Codigo := '0816';
+          134: Codigo := '0816';
+          135: Codigo := '0446';
+          136: Codigo := '046b';
+          137: Codigo := '086b';
+          138: Codigo := '0c6b';
+          139: Codigo := '0418';
+          140: Codigo := '0417';
+          141: Codigo := '0419';
+          142: Codigo := '243b';
+          143: Codigo := '103b';
+          144: Codigo := '143b';
+          145: Codigo := '0c3b';
+          146: Codigo := '043b';
+          147: Codigo := '083b';
+          148: Codigo := '203b';
+          149: Codigo := '183b';
+          150: Codigo := '1c3b';
+          151: Codigo := '044f';
+          152: Codigo := '7c1a';
+          153: Codigo := '181a';
+          154: Codigo := '0c1a';
+          155: Codigo := '081a';
+          156: Codigo := '046c';
+          157: Codigo := '0432';
+          158: Codigo := '045b';
+          159: Codigo := '041b';
+          160: Codigo := '0424';
+          161: Codigo := '2c0a';
+          162: Codigo := '400a';
+          163: Codigo := '340a';
+          164: Codigo := '240a';
+          165: Codigo := '140a';
+          166: Codigo := '1c0a';
+          167: Codigo := '300a';
+          168: Codigo := '440a';
+          169: Codigo := '100a';
+          170: Codigo := '480a';
+          171: Codigo := '080a';
+          172: Codigo := '4c0a';
+          173: Codigo := '180a';
+          174: Codigo := '3c0a';
+          175: Codigo := '280a';
+          176: Codigo := '500a';
+          177: Codigo := '0c0a';
+          178: Codigo := '380a';
+          179: Codigo := '200a';
+          180: Codigo := '0441';
+          181: Codigo := '081d';
+          182: Codigo := '041d';
+          183: Codigo := '041d';
+          184: Codigo := '045a';
+          185: Codigo := '0428';
+          186: Codigo := '085f';
+          187: Codigo := '0449';
+          188: Codigo := '0444';
+          189: Codigo := '044a';
+          190: Codigo := '041e';
+          191: Codigo := '0451';
+          192: Codigo := '041f';
+          193: Codigo := '0442';
+          194: Codigo := '0480';
+          195: Codigo := '0422';
+          196: Codigo := '042e';
+          197: Codigo := '0420';
+          198: Codigo := '0843';
+          199: Codigo := '0443';
+          200: Codigo := '042a';
+          201: Codigo := '0452';
+          202: Codigo := '0488';
+          203: Codigo := '0434';
+          204: Codigo := '0485';
+          205: Codigo := '0478';
+          206: Codigo := '046a';
+          207: Codigo := '0435';
+     end;
+     Result := Codigo;
+end;
+
+procedure TfrmParametros.btnAdicionarIncludeClick(Sender: TObject);
+var
+   Dir: String;
+begin
+     if SelectDirectory('Selecione a pasta', '', Dir, [sdNewFolder, sdNewUI]) then
+     begin
+          edtAdicionarInclude.Text := Dir;
+          edtArquivoComando.Font.Color := clBlue;
+     end;
+end;
+
+procedure TfrmParametros.btnAplicarParametrosClick(Sender: TObject);
+var
+   str: String;
+begin
+     ParametrosCompilador := '';
+
+     if rbt16Bits.Checked then     // -16
+        ParametrosCompilador := ParametrosCompilador + ' -16';
+
+     if cbxArquivoComando.Checked then  //  @<responsefile>
+     begin
+          if (edtArquivoComando.Text <> 'Selecione um arquivo...') and (edtArquivoComando.Text <> '') then
+             ParametrosCompilador := ParametrosCompilador + '@"'+edtArquivoComando.Text+'"'
+          else
+              cbxArquivoComando.Checked := False;
+     end;
+     if cbxDefinirNomeRes.Checked then    //  -fo<filename>
+     begin
+          if (edtDefinirNomeRes.Text <> 'Escolha nome para o arquivo...') and (edtDefinirNomeRes.Text <> '') then
+          begin
+               str := edtDefinirNomeRes.Text;
+               if ExtractFileExt(str) = '.res' then
+                  Delete(str, Pos('.res', str), Pos('.res', str)+3);
+               edtDefinirNomeRes.Text := str;
+               if Pos('.RES', edtDefinirNomeRes.Text) <> 0 then
+               begin
+                    ParametrosCompilador := ParametrosCompilador +' -fo "' + edtDefinirNomeRes.Text+'"';
+               end
+               else
+                   ParametrosCompilador := ParametrosCompilador +' -fo "' + edtDefinirNomeRes.Text+'.RES"'
+          end
+          else
+              cbxDefinirNomeRes.Checked := False;
+     end;
+     if cbxAdicionarInclude.Checked then  //   -i<path>
+     begin
+          if (edtAdicionarInclude.Text <> 'Selecione o diretório a ser adicionado...') and (edtAdicionarInclude.Text <> '') then
+               ParametrosCompilador := ParametrosCompilador + ' -i "' + edtAdicionarInclude.Text+'"'
+          else
+              cbxAdicionarInclude.Checked := False;
+     end;
+     if cbxDefine.Checked then   //  -d<name>[=<string>]
+     begin
+          if (edtNomeDefine.Text <> '') and (edtNomeDefine.Text <> 'Nome')  then
+          begin
+               if (edtStringDefine.Text <> '') and (edtStringDefine.Text <> 'String')  then
+                    ParametrosCompilador := ParametrosCompilador + ' -d '+edtNomeDefine.Text+'='+edtStringDefine.Text
+               else
+                   cbxDefine.Checked := False;
+          end;
+     end;
+     if cbxCodePage.Checked then
+     begin
+          if (cmbCodepage.Text <> '') and (cmbCodepage.Text <> 'Selecione uma Code Page...')then
+          begin
+               StrCodePage := CodePage(cmbCodepage.ItemIndex);
+               if cbxDBCS.Checked then     //  -c <codepage> -m
+                    ParametrosCompilador := ParametrosCompilador + ' -c ' + StrCodePage + ' -m'
+               else//  -c <codepage>
+                     ParametrosCompilador := ParametrosCompilador + ' -c ' + StrCodePage;
+          end
+          else
+              cbxCodePage.Checked := False;
+     end;
+
+     if cbxEspecificarIdioma.Checked then //-l<language>
+     begin
+          if (cmbEspecificarIdioma.Text <> '') and (cmbEspecificarIdioma.Text <> 'Selecione um Idioma...') then
+          begin
+               StrIdioma := Idioma(cmbEspecificarIdioma.ItemIndex);
+               ParametrosCompilador := ParametrosCompilador + ' -l ' + StrIdioma;
+          end
+          else
+              cbxEspecificarIdioma.Checked := False;
+     end;
+
+     if cbxApagarInclude.Checked then
+        ParametrosCompilador := ParametrosCompilador + ' -x';
+
+     if cbxExibirLog.Checked then
+        ParametrosCompilador := ParametrosCompilador + ' -v';
+
+     if ParametrosCompilador <> '' then
+     begin
+          frmResmaker.Alterarparmetrosdocompilador1.Checked := True;
+          btnLimparParametros.Enabled := True;
+     end
+     else
+     begin
+          frmResmaker.Alterarparmetrosdocompilador1.Checked := False;
+          btnLimparParametros.Enabled := False;
+     end;
+     Close;
+end;
+
+procedure TfrmParametros.btnArquivoComandoClick(Sender: TObject);
+begin
+     opnParametros.Title := 'Abrir arquivo com as instruções de compilação';
+     opnParametros.Filter := 'Todos os tipos de arquivo | *.*';
+     if opnParametros.Execute then
+     begin
+          edtArquivoComando.Text := opnParametros.FileName;
+          edtArquivoComando.Font.Color := clBlue;
+     end;
+end;
+
+procedure TfrmParametros.btnCancelarClick(Sender: TObject);
+begin
+     Close;
+end;
+
+procedure TfrmParametros.btnDefinirNomeResClick(Sender: TObject);
+begin
+     savParametros.Title := 'Salvar arquivo *.RES como...';
+     savParametros.Filter := 'Arquivos *.RES | *.RES';
+     savParametros.DefaultExt := '.RES';
+     if savParametros.Execute then
+     begin
+          edtDefinirNomeRes.Text := savParametros.FileName;
+          edtDefinirNomeRes.Font.Color := clBlue;
+     end;
+end;
+
+procedure TfrmParametros.btnLimparParametrosClick(Sender: TObject);
+begin
+     rbt32Bits.Checked := True;
+
+     cbxArquivoComando.Checked := False;
+     cbxDefinirNomeRes.Checked := False;
+     cbxAdicionarInclude.Checked := False;
+     cbxDefine.Checked := False;
+     cbxApagarInclude.Checked := False;
+     cbxCodePage.Checked := False;
+     cbxDBCS.Checked := False;
+     cbxEspecificarIdioma.Checked := False;
+     cbxExibirLog.Checked := False;
+
+     edtArquivoComando.Enabled := False;
+     edtDefinirNomeRes.Enabled := False;
+     edtAdicionarInclude.Enabled := False;
+     edtNomeDefine.Enabled := False;
+     edtStringDefine.Enabled := False;
+
+     btnArquivoComando.Enabled := False;
+     btnDefinirNomeRes.Enabled := False;
+     btnAdicionarInclude.Enabled := False;
+
+     cmbCodepage.Enabled := False;
+     cmbEspecificarIdioma.Enabled := False;
+
+     ParametrosCompilador := '';
+     frmResmaker.Alterarparmetrosdocompilador1.Checked := False;
+     btnLimparParametros.Enabled := False;
+end;
+
+procedure TfrmParametros.cbxAdicionarIncludeClick(Sender: TObject);
+begin
+     edtAdicionarInclude.Enabled := cbxAdicionarInclude.Checked;
+     btnAdicionarInclude.Enabled := cbxAdicionarInclude.Checked;
+end;
+
+procedure TfrmParametros.cbxArquivoComandoClick(Sender: TObject);
+begin
+     edtArquivoComando.Enabled := cbxArquivoComando.Checked;
+     btnArquivoComando.Enabled := cbxArquivoComando.Checked;
+end;
+
+procedure TfrmParametros.cbxCodePageClick(Sender: TObject);
+begin
+     cmbCodepage.Enabled := cbxCodePage.Checked;
+     cbxDBCS.Enabled := cbxCodePage.Checked;
+end;
+
+procedure TfrmParametros.cbxDefineClick(Sender: TObject);
+begin
+     edtNomeDefine.Enabled := cbxDefine.Checked;
+     edtStringDefine.Enabled := cbxDefine.Checked;
+end;
+
+procedure TfrmParametros.cbxDefinirNomeResClick(Sender: TObject);
+begin
+     edtDefinirNomeRes.Enabled := cbxDefinirNomeRes.Checked;
+     btnDefinirNomeRes.Enabled := cbxDefinirNomeRes.Checked;
+end;
+
+procedure TfrmParametros.cbxEspecificarIdiomaClick(Sender: TObject);
+begin
+     cmbEspecificarIdioma.Enabled := cbxEspecificarIdioma.Checked;
+end;
+
+procedure TfrmParametros.cmbCodepageEnter(Sender: TObject);
+begin
+     cmbCodepage.Font.Color := clBlue;
+     cmbCodepage.DroppedDown := True;
+end;
+
+procedure TfrmParametros.cmbCodepageExit(Sender: TObject);
+begin
+     if (cmbCodepage.Text = 'Selecione uma Code Page...') or (cmbCodepage.Text = '') then
+     begin
+          cmbCodepage.Font.Color := clSkyBlue;
+          cmbCodepage.Text := 'Selecione uma Code Page...';
+     end
+     else
+     begin
+          cmbCodepage.Font.Color := clBlue;
+          btnLimparParametros.Enabled := True;
+     end;
+end;
+
+procedure TfrmParametros.cmbEspecificarIdiomaEnter(Sender: TObject);
+begin
+     cmbEspecificarIdioma.Font.Color := clBlue;
+     cmbEspecificarIdioma.DroppedDown := True;
+end;
+
+procedure TfrmParametros.cmbEspecificarIdiomaExit(Sender: TObject);
+begin
+     if (cmbEspecificarIdioma.Text = 'Selecione um Idioma...') or (cmbEspecificarIdioma.Text = '') then
+     begin
+          cmbEspecificarIdioma.Font.Color := clSkyBlue;
+          cmbEspecificarIdioma.Text := 'Selecione um Idioma...';
+     end
+     else
+     begin
+          cmbEspecificarIdioma.Font.Color := clBlue;
+          btnLimparParametros.Enabled := True;
+     end;
+end;
+
+procedure TfrmParametros.edtAdicionarIncludeEnter(Sender: TObject);
+begin
+     BufferParametros := edtAdicionarInclude.Text;
+     edtAdicionarInclude.Text := '';
+     edtAdicionarInclude.Font.Color := clBlue;
+end;
+
+procedure TfrmParametros.edtAdicionarIncludeExit(Sender: TObject);
+begin
+     edtAdicionarInclude.Text := BufferParametros;
+     if  (edtAdicionarInclude.Text = 'Selecione o diretório a ser adicionado...') or (edtAdicionarInclude.Text = '') then
+     begin
+          edtAdicionarInclude.Font.Color := clSkyBlue;
+          edtAdicionarInclude.Text := 'Selecione o diretório a ser adicionado...'
+     end
+     else
+     begin
+          edtAdicionarInclude.Font.Color := clBlue;
+          btnLimparParametros.Enabled := True;
+     end;
+end;
+
+procedure TfrmParametros.edtAdicionarIncludeKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+     BufferParametros := edtAdicionarInclude.Text;
+end;
+
+procedure TfrmParametros.edtArquivoComandoEnter(Sender: TObject);
+begin
+     BufferParametros := edtArquivoComando.Text;
+     edtArquivoComando.Text := '';
+     edtArquivoComando.Font.Color := clBlue;
+end;
+
+procedure TfrmParametros.edtArquivoComandoExit(Sender: TObject);
+begin
+     edtArquivoComando.Text := BufferParametros;
+     if (edtArquivoComando.Text = 'Selecione um arquivo...') or (edtArquivoComando.Text = '') then
+     begin
+          edtArquivoComando.Font.Color := clSkyBlue;
+          edtArquivoComando.Text := 'Selecione um arquivo...'
+     end
+     else
+     begin
+          edtArquivoComando.Font.Color := clBlue;
+          btnLimparParametros.Enabled := True;
+     end;
+end;
+
+
+
+procedure TfrmParametros.edtArquivoComandoKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+     BufferParametros := edtArquivoComando.Text;
+end;
+
+procedure TfrmParametros.edtDefinirNomeResEnter(Sender: TObject);
+begin
+     BufferParametros := edtDefinirNomeRes.Text;
+     edtDefinirNomeRes.Text := '';
+     edtDefinirNomeRes.Font.Color := clBlue;
+end;
+
+procedure TfrmParametros.edtDefinirNomeResExit(Sender: TObject);
+begin
+     edtDefinirNomeRes.Text := BufferParametros;
+     if (edtDefinirNomeRes.Text = 'Escolha nome para o arquivo...') or (edtDefinirNomeRes.Text = '') then
+     begin
+          edtDefinirNomeRes.Font.Color := clSkyBlue;
+          edtDefinirNomeRes.Text := 'Escolha nome para o arquivo...';
+     end
+     else
+     begin
+          edtDefinirNomeRes.Font.Color := clBlue;
+          btnLimparParametros.Enabled := True;
+     end;
+end;
+
+
+
+procedure TfrmParametros.edtDefinirNomeResKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+     BufferParametros := edtDefinirNomeRes.Text;
+end;
+
+procedure TfrmParametros.edtNomeDefineEnter(Sender: TObject);
+begin
+     BufferParametros := edtNomeDefine.Text;
+     edtNomeDefine.Font.Color := clBlue;
+     edtNomeDefine.Text := '';
+end;
+
+procedure TfrmParametros.edtNomeDefineExit(Sender: TObject);
+begin
+     edtNomeDefine.Text := BufferParametros;
+     if (edtNomeDefine.Text = 'Nome') or (edtNomeDefine.Text = '') then
+     begin
+          edtNomeDefine.Font.Color := clSkyBlue;
+          edtNomeDefine.Text := 'Nome';
+     end
+     else
+         edtNomeDefine.Font.Color := clBlue;
+end;
+
+procedure TfrmParametros.edtNomeDefineKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+     BufferParametros := edtNomeDefine.Text;
+end;
+
+procedure TfrmParametros.edtStringDefineEnter(Sender: TObject);
+begin
+     BufferParametros := edtStringDefine.Text;
+     edtStringDefine.Font.Color := clBlue;
+     edtStringDefine.Text := '';
+end;
+
+procedure TfrmParametros.edtStringDefineExit(Sender: TObject);
+begin
+     edtStringDefine.Text := BufferParametros;
+     if (edtStringDefine.Text = '') or (edtStringDefine.Text = 'String') then
+     begin
+          edtStringDefine.Font.Color := clSkyBlue;
+          edtStringDefine.Text := 'String';
+          edtNomeDefine.Font.Color := clSkyBlue;
+          edtNomeDefine.Text := 'Nome';
+     end
+     else
+     begin
+         if (edtNomeDefine.Text = 'Nome') or (edtNomeDefine.Text = '') then
+         begin
+              edtStringDefine.Font.Color := clSkyBlue;
+              edtStringDefine.Text := 'String';
+         end
+         else
+         begin
+              edtStringDefine.Font.Color := clBlue;
+              btnLimparParametros.Enabled := True;
+         end;
+     end;
+end;
+
+procedure TfrmParametros.edtStringDefineKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+     BufferParametros := edtStringDefine.Text;
+end;
+
+procedure TfrmParametros.FormCreate(Sender: TObject);
+begin
+
+     /////// HINTS...
+     Application.HintHidePause := 9000;
+     cbxArquivoComando.Hint :=    'Obtém instruções do arquivo de comandos especificado.';
+
+     cbxDefinirNomeRes.Hint :=    'Renomeia o arquivo *.RES gerado.' +#13+
+                                  '(Por padrão o arquivo *.RES será criado' + #13 +
+                                  'com o mesmo nome do arquivo *.RC utilizado).';
+
+     cbxAdicionarInclude.Hint :=  'Adiciona o diretório no caminho de busca do include';
+
+     cbxDefine.Hint :=            'Define um símbolo do pré-processador (#define).';
+
+     cbxApagarInclude.Hint :=     'Remove o caminho atual do include';
+
+     cbxCodePage.Hint :=          'Utiliza a Code Page especificada para a tradução do Resource.'+#13+
+                                  'Se esta opção não for habilitada, a Code Page ANSI padrão será utilizada.';
+
+     cbxDBCS.Hint :=              'Indica que a Code Page especificada contém caracteres'+#13+
+                                  'do conjunto de caracteres double-byte (DBCS)';
+
+     cbxEspecificarIdioma.Hint := 'Especificar o idioma padrão.';
+
+     cbxExibirLog.Hint :=         'Altera a saída do compilador para o modo detalhado'+#13+
+                                  'e exibe o log de compilação.';
+
+     cbxApagarRC.Hint :=          'Apaga o arquivo *RC após a compilação do Resource.';
+     ///
+
+end;
+
+end.
