@@ -1,4 +1,6 @@
 # ResMaker
+![MainWindow] (http://i.imgur.com/h3cdwwA.png?1)
+![SettingsWindow](http://i.imgur.com/hxKG4CP.png)
 ## ENGLISH
 ### GUI front-end to Borland's brcc32.exe
 
