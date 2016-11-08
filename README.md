@@ -27,7 +27,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see http://www.gnu.org/licenses/.
     
-## ENGLISH
+## PORTUGUÊS
 ### Front-end gráfico para o compilador Borland brcc32.exe    
     
 ###### ResMaker é um front-end gráfico para o compilador brcc32.exe da Borland (incluso no diretório bin do Delphi).
